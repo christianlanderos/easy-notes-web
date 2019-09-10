@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
 				echo "########## Building stage started"
-                bat 'mvn clean install'
+                bat 'mvn clean package -B -DskipTests'
 				echo "########## Building stage finished"
             }
         }
@@ -12,8 +12,14 @@ pipeline {
 		stage('Test') {
 			steps {
 				echo "########## Testing stage started"
+				bat 'mvn test'
 				echo "########## Testing stage finished"
 			}
+			post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
 		}
 		
 		stage('Deploy') {
