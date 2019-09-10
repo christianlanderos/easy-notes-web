@@ -1,13 +1,27 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-				echo "runing steps"
+				echo "########## Building stage started"
                 bat 'mvn clean install'
-				echo "steps finished"
+				echo "########## Building stage finished"
             }
         }
+		
+		stage('Test') {
+			steps {
+				echo "########## Testing stage started"
+				echo "########## Testing stage finished"
+			}
+		}
+		
+		stage('Deploy') {
+			steps {
+				echo "########## Deploying stage started"
+				echo "########## Deploying stage finished"
+			}
+		}
     }
 	post {
         always {
